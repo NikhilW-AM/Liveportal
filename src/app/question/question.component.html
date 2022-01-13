@@ -1,0 +1,64 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Angular Minds</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
+          <a class="nav-link" href="#">Questions</a>
+          <a class="nav-link" href="#">Tests</a>
+          <a class="nav-link" href="#">Reports</a>
+          <a class="nav-link" href="#">Setting</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <h2>Questions</h2>
+        <div class="col">
+            <button class="btn btn-primary btn-lg float-right" id="addquestions">+Add Questions</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <form action="/action_page.php">
+    <div class="menu">
+      <div id="pages">
+        <label for="cars">Show</label>
+        <select class="btn btn-light dropdown-toggle" (change)="select($event)">
+            <option selected>0</option>
+            <option  *ngFor="let questionCount of questionCountArray; let i=index" >{{questionCount}}</option>     
+        </select>
+        <label for="cars">Records per Page</label>
+      </div>
+      <div> <input type="text" placeholder="Search.." name="search">
+      </div>
+      <div>
+        <select class="btn btn-light dropdown-toggle" (change)="selectTopic($event)" >
+            <option selected>Choose topic</option>
+            <option *ngFor="let topic of topic" >{{topic.name}}</option>
+            </select>
+      </div>
+    </div>
+    <br><br>
+    
+  </form>
+
+  <table class="table">
+    <tbody>
+      <tr *ngFor="let question of questionsArray">
+        <td>{{question.questionText}}</td>
+      </tr>
+    </tbody>
+  </table>
+  

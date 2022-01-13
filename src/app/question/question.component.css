@@ -1,0 +1,25 @@
+.col{
+    display: flex;
+}
+
+.row{
+    display: block;
+}
+
+#addquestions{
+    margin-left: 800px;
+}
+#dropdownMenuButton1{
+    margin-left: 30px;
+}
+#pages{
+    margin-left: 50px;
+}
+.menu
+{
+    display: flex;
+}
+.menu div
+{
+    margin-right: 50px;
+}
