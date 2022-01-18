@@ -1,22 +1,4 @@
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Angular Minds</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
-          <a class="nav-link" href="#">Questions</a>
-          <a class="nav-link" href="#">Tests</a>
-          <a class="nav-link" href="#">Reports</a>
-          <a class="nav-link" href="#">Setting</a>
-        </div>
-      </div>
-    </div>
-  </nav>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -31,21 +13,22 @@
       </div>
     </div>
   </nav>
-  <form action="/action_page.php">
+  <form >
     <div class="menu">
       <div id="pages">
-        <label for="cars">Show</label>
+        <label style="margin-right: 5px;"><span><input type="checkbox"></span> Show</label>
         <select class="btn btn-light dropdown-toggle" (change)="select($event)">
             <option selected>0</option>
-            <option  *ngFor="let questionCount of questionCountArray; let i=index" >{{questionCount}}</option>     
+            <option  *ngFor="let questionCount of questionCountArray; let i=index">{{questionCount}}</option>     
         </select>
         <label for="cars">Records per Page</label>
       </div>
-      <div> <input type="text" placeholder="Search.." name="search">
+      <div> <input type="text" placeholder="Search.." name="search" [(ngModel)]='searchBox' (keyup)="search()">
+        
       </div>
       <div>
         <select class="btn btn-light dropdown-toggle" (change)="selectTopic($event)" >
-            <option selected>Choose topic</option>
+            <option selected>Choose topic </option>
             <option *ngFor="let topic of topic" >{{topic.name}}</option>
             </select>
       </div>
@@ -54,11 +37,38 @@
     
   </form>
 
-  <table class="table">
+  <!-- <ul class="table">
     <tbody>
-      <tr *ngFor="let question of questionsArray">
+      <tr *ngFor="let question of questionTopic; let i=index">
         <td>{{question.questionText}}</td>
+        <td>
+          <tr *ngFor="let opt of questionTopic[i].options">
+          <td type="radio">{{opt.option}}</td>
+          </tr>
+        </td>
       </tr>
     </tbody>
-  </table>
+  </ul> -->
+
+  <ul *ngFor="let question of questionTopic | filter : searchBox; let i=index ; " >
+    <li><span style="margin-right: 3px;"><input type="checkbox"></span>{{question.questionText}}</li>
+      <ul *ngFor="let opt of questionTopic[i].options">
+        
+        <div *ngIf="questionTopic[i].type === 'MULTIPLE CHOICE';else other_content">
+          <input type="radio" name="option1"  value="">
+          {{opt.option}}
+      </div>
+      
+      <ng-template #other_content>
+        <input type="checkbox" name="option1"  value="">
+          {{opt.option}}
+      </ng-template>
+      </ul>
+      <small>
+        <span>
+          <a href="" routerLink="/edit">edit</a>
+          <a href="">delete</a>
+        </span>
+      </small>
+  </ul>
   

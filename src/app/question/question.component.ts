@@ -20,14 +20,15 @@ export class QuestionComponent implements OnInit {
   topicId:any
   name:any[] = []
   questionTopic:any[]=[]
+  searchBox:any
   ngOnInit(): void {
     this.fetch.getData().subscribe(data => {this.details = data,
       this.questionsArray = this.details.result
-    console.log("detals"+this.questionsArray);
+    console.log(this.questionsArray);
     })
     this.fetch.getTopicData().subscribe(topic => {this.topicData = topic,
     this.topic = this.topicData.result;
-    console.log('toopic'+this.topic);
+    console.log(this.topic);
     
   })
   }
@@ -36,6 +37,7 @@ export class QuestionComponent implements OnInit {
   {
     console.log(Count.target.value);
     this.questionCount = Count.target.value
+    this.changeTopic(this.questionCount,this.topicId)
   }
 
   selectTopic(event:any)
@@ -61,5 +63,14 @@ export class QuestionComponent implements OnInit {
       data => {this.questionObject = data
         this.questionTopic = this.questionObject.result
       })
+  }
+  search(){
+    console.log(this.searchBox);
+    this.fetch.searchQuestion(this.searchBox).subscribe(data => {this.details = data,
+      this.questionsArray = this.details.result
+      console.log(this.questionsArray);
+      
+    })
+
   }
 }
