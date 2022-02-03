@@ -8,10 +8,13 @@ import { HttpClient,HttpHeaders} from '@angular/common/http'
 export class FetchdataService {
 
   constructor(private http:HttpClient) { }
-  private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWRkMjgxZWU2ZDdkNzdjOGU0ZjY4ZmYiLCJfYWN0aXZlT3JnIjoiNjE5Y2U0YThlNTg2ODUxNDYxMGM4ZGE3IiwiaWF0IjoxNjQyNDc5MzU5LCJleHAiOjE2NDI1MjI1NTl9.xUFvw4dE-6hzMMY8LecetP99VS-4TPzTUgtNvkfR8gI'
+  private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWRkMjdjNGU2ZDdkNzdjOGU0ZjY4ZGQiLCJfYWN0aXZlT3JnIjoiNjE5Y2U0YThlNTg2ODUxNDYxMGM4ZGE3IiwiaWF0IjoxNjQzODYxNTA3LCJleHAiOjE2NDM5MDQ3MDd9.rPgYdEbz9URWadcn_KhZ9Pmp8feSNLFryPmqZGpdM50'
   private _url = 'https://admin.liveexamcenter.in/api/questions?page=1&limit=&term=&topic='
   private _topicUrl = "https://admin.liveexamcenter.in/api/topics?page=1&limit=9007199254740991&term="
+  private subjectUrl = "https://admin.liveexamcenter.in/api/subjects?page=1&limit=5&term="
 
+  private postUrl = 'https://admin.liveexamcenter.in/api/questions'
+  private editQuestionUrl = 'https://admin.liveexamcenter.in/api/questions'
   qCount:number=0
   qID:any
   getData()
@@ -54,5 +57,34 @@ export class FetchdataService {
         Authorization : this.token
       }
     })    
+  }
+
+  getSubject(){
+    return this.http.get(this.subjectUrl,{
+      headers:{
+        authorization:this.token
+      }
+    })
+  }
+
+  geteditQuestionData(id:any)
+  {
+    let url = `https://admin.liveexamcenter.in/api/questions/${id}`
+    return this.http.get(url,{
+      headers:{
+        authorization:this.token
+      }
+    })
+  }
+  
+  postData(data:any)
+  {
+    console.log(data);
+    
+    return this.http.post(this.postUrl,data,{
+      headers:{
+        authorization:this.token
+      }
+    })
   }
 }

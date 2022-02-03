@@ -8,7 +8,7 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <h2>Questions</h2>
         <div class="col">
-            <button class="btn btn-primary btn-lg float-right" id="addquestions">+Add Questions</button>
+            <button class="btn btn-primary btn-lg float-right" id="addquestions" routerLink="/addquestion">+Add Questions</button>
         </div>
       </div>
     </div>
@@ -18,8 +18,7 @@
       <div id="pages">
         <label style="margin-right: 5px;"><span><input type="checkbox"></span> Show</label>
         <select class="btn btn-light dropdown-toggle" (change)="select($event)">
-            <option selected>0</option>
-            <option  *ngFor="let questionCount of questionCountArray; let i=index">{{questionCount}}</option>     
+            <option  *ngFor="let questionCount of questionCountArray" [ngValue]="questionCount">{{questionCount}}</option>     
         </select>
         <label for="cars">Records per Page</label>
       </div>
@@ -28,8 +27,8 @@
       </div>
       <div>
         <select class="btn btn-light dropdown-toggle" (change)="selectTopic($event)" >
-            <option selected>Choose topic </option>
-            <option *ngFor="let topic of topic" >{{topic.name}}</option>
+            <!-- <option selected value="topic">Choose topic </option> -->
+            <option *ngFor="let topic of topic" [ngValue]="topic">{{topic.name}}</option>
             </select>
       </div>
     </div>
@@ -66,8 +65,8 @@
       </ul>
       <small>
         <span>
-          <a href="" routerLink="/edit">edit</a>
-          <a href="">delete</a>
+          <button (click)="edit(questionTopic[i]._id)">edit</button>
+          <a >delete</a>
         </span>
       </small>
   </ul>

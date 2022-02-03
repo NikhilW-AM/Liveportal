@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FetchdataService } from '../fetchdata.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { FetchdataService } from '../fetchdata.service';
 export class QuestionComponent implements OnInit {
 
   questionCountArray:number[]=[5,10,20,30,50]
-  constructor(private fetch:FetchdataService) { }
+  constructor(private fetch:FetchdataService, private rout:Router, private activate:ActivatedRoute) { }
   details?:any
   topicData:any
   topic:any[]=[]
@@ -24,11 +25,11 @@ export class QuestionComponent implements OnInit {
   ngOnInit(): void {
     this.fetch.getData().subscribe(data => {this.details = data,
       this.questionsArray = this.details.result
-    console.log(this.questionsArray);
+    //console.log(this.questionsArray);
     })
     this.fetch.getTopicData().subscribe(topic => {this.topicData = topic,
     this.topic = this.topicData.result;
-    console.log(this.topic);
+    //console.log(this.topic);
     
   })
   }
@@ -47,12 +48,12 @@ export class QuestionComponent implements OnInit {
     {
       if(this.topic[i].name === this.topicName)
       {
-        console.log(this.topic[i]._id);
+        console.log(this.topicName);
         this.topicId = this.topic[i]._id;
         break;
       }
     }
-    console.log(this.questionCount, this.topicId);
+   // console.log(this.questionCount, this.topicId);
     
     this.changeTopic(this.questionCount,this.topicId)
   }
@@ -62,15 +63,23 @@ export class QuestionComponent implements OnInit {
     this.fetch.getTopics(questionCount,topicId).subscribe(
       data => {this.questionObject = data
         this.questionTopic = this.questionObject.result
+
+        console.log(this.questionObject);
+        
       })
   }
   search(){
     console.log(this.searchBox);
     this.fetch.searchQuestion(this.searchBox).subscribe(data => {this.details = data,
       this.questionsArray = this.details.result
-      console.log(this.questionsArray);
+      //console.log(this.questionsArray);
       
     })
 
+  }
+
+  edit(id:any)
+  {
+    this.rout.navigate(['/edit',id])
   }
 }

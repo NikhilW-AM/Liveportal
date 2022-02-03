@@ -1,0 +1,38 @@
+<div class="container justify-content-center">
+    <div class="row">
+      <div class="col-md-6">
+          <div class="card mx-auto">
+            <div class="card-body">
+        <h3 _ngcontent-cpi-c10="" class="card-title mb-4  text-md-center"> <strong>Login to your account</strong> </h3>
+    <form _ngcontent-cpi-c10="" [formGroup]="signin" role="form" class="ng-untouched ng-pristine ng-invalid">
+        <div _ngcontent-cpi-c10="" class="form-group">
+            <mat-form-field>
+            <input _ngcontent-cpi-c10="" class="form-control ng-untouched ng-pristine ng-invalid" formControlName="username" matInput placeholder="Enter email" type="email">
+            <!---->
+        </mat-form-field>
+        </div>
+            <div _ngcontent-cpi-c10="" class="form-group">
+                <mat-form-field>
+                    <input _ngcontent-cpi-c10="" class="form-control border-right-0 ng-untouched ng-pristine ng-invalid" [type]="hide ? 'password' : 'text'" formControlName="password" matInput placeholder="Password" type="password">
+                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </mat-form-field>
+                <!---->
+        </div>
+        <a _ngcontent-cpi-c10="" class="text-secondary d-inline-block mt-3" >Forgot password?</a>
+        <div _ngcontent-cpi-c10="" class="d-flex">
+            <button _ngcontent-cpi-c10="" class="btn btn-primary btn-block" type="submit">Log In</button>
+        </div>
+        <div _ngcontent-cpi-c10="" class="text-center">
+            <div _ngcontent-cpi-c10="" class="text-center text-muted my-3 small"> OR </div>
+            <!---->
+            <button mat-button style="padding: 1rem;" (click)="loginwithgoogle()">
+                <mat-icon style="width: 50px; height:30px"
+                          svgIcon="logo"></mat-icon> Login With Google
+            </button>
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
