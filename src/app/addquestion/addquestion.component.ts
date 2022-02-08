@@ -26,13 +26,15 @@ export class AddquestionComponent implements OnInit {
   isValid:boolean = false
   optionType : string = "MULTIPLE CHOICE"
   optionArray:any[]=[
-    {option:"",isCorrect: false, richTextEditor:false},
+    {option:null,isCorrect: false, richTextEditor:false},
     {option:"",isCorrect: false, richTextEditor:false},
     {option:"",isCorrect: false, richTextEditor:false},
     {option:"",isCorrect: false, richTextEditor:false}]
     
+  opobj={option:"",isCorrect: false, richTextEditor:false}
+  oparr=[]
 
-    
+
     constructor(private fetch : FetchdataService,  private fb:FormBuilder, private toastr: ToastrService, private router:Router) {}
     
     AddForm = this.fb.group({  
@@ -63,8 +65,9 @@ export class AddquestionComponent implements OnInit {
        
     newQuantity(): FormGroup {  
       return this.fb.group({  
-        option: false,  
-        textoption: '',  
+        option: '', 
+        isCorrect: false, 
+        richTextEditor: false  
       })  
     }  
        
@@ -105,12 +108,32 @@ export class AddquestionComponent implements OnInit {
     
   }
 
+
+  onChange(i: number) {
+    const formArray: FormArray = this.AddForm.get('options') as FormArray;
+
+    formArray.value.forEach((formGroup: FormGroup, index: number) => {
+      if (i === index) {
+        this.optionArray[index].isCorrect = true;
+      } else {
+        this.optionArray[index].isCorrect= false;
+      }
+      this.optionArray[index].option = this.AddForm.value.options[index].option 
+      console.log(this.AddForm.value.options[index].option);
+    });
+    
+    
+  }
   onSubmit()
   {
-    this.toastr.success('Success', 'Question added successfully');
-    this.fetch.postData(this.AddForm.value).subscribe(()=>{
-    })
-    this.router.navigate(['/question'])
+    this.AddForm.get('options')?.setValue(this.optionArray);
+
+    console.log(this.AddForm.value);
+    
+    //this.toastr.success('Success', 'Question added successfully');
+    //this.fetch.postData(this.AddForm.value).subscribe(()=>{
+    //})
+    //this.router.navigate(['/question'])
   }
   fun(i:number)
   {

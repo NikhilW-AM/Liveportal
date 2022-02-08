@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 
+
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { SeeComponent } from './see/see.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -23,6 +24,7 @@ import { HeaderComponent } from './header/header.component';
 import { EditComponent } from './edit/edit.component';
 import { AddquestionComponent } from './addquestion/addquestion.component';
 import { LoginComponent } from './login/login.component';
+import { httpInterceptorProviders } from './index';
 
 
 
@@ -48,7 +50,8 @@ import { LoginComponent } from './login/login.component';
   providers: [{
     provide: RECAPTCHA_V3_SITE_KEY,
     useValue: environment.recaptcha.siteKey,
-  },],
+    
+  },httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

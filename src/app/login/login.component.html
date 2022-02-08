@@ -4,7 +4,7 @@
           <div class="card mx-auto">
             <div class="card-body">
         <h3 _ngcontent-cpi-c10="" class="card-title mb-4  text-md-center"> <strong>Login to your account</strong> </h3>
-    <form _ngcontent-cpi-c10="" [formGroup]="signin" role="form" class="ng-untouched ng-pristine ng-invalid">
+    <form _ngcontent-cpi-c10="" [formGroup]="signin" role="form" class="ng-untouched ng-pristine ng-invalid" (ngSubmit)="submitForm(signin)"> 
         <div _ngcontent-cpi-c10="" class="form-group">
             <mat-form-field>
             <input _ngcontent-cpi-c10="" class="form-control ng-untouched ng-pristine ng-invalid" formControlName="username" matInput placeholder="Enter email" type="email">

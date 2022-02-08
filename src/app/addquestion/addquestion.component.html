@@ -68,7 +68,7 @@
 
                         <ng-template #checkbox>
                             <div class = "input-group-text">
-                                <input type="radio"  [id]="i" aria-label="Radio button for following text input" style="margin-right: 5px;" name="isCorrect"  (click)="optionArray[i].isCorrect === true?  false : true" [value]="true" formControlName="isCorrect" ng-model="optionArray.isCorrect" > 
+                                <input type="radio"  id="quantity.isCorrect{{i}}" aria-label="Radio button for following text input" style="margin-right: 5px;" name="isCorrect"  (click)="onChange(i)" formControlName="isCorrect" > 
                                 <span class="form-check-label">option {{i+1}}</span>
                           </div>
                       </ng-template>
@@ -88,3 +88,4 @@
     
 </div>
 
+{{AddForm.value | json}}
