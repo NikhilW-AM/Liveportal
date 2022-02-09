@@ -131,7 +131,7 @@ export class AddquestionComponent implements OnInit {
     console.log(this.AddForm.value);
     
     //this.toastr.success('Success', 'Question added successfully');
-    //this.fetch.postData(this.AddForm.value).subscribe(()=>{
+    //this.fetch.postdata(this.AddForm.value).subscribe(()=>{
     //})
     //this.router.navigate(['/question'])
   }

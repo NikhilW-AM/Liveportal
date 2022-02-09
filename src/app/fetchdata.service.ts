@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders} from '@angular/common/http'
-import { environment } from 'src/environments/environment';
 import { map } from 'rxjs';
 import { Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +10,16 @@ import { Router } from '@angular/router';
 export class FetchdataService {
 
   constructor(private http:HttpClient, private route:Router) { }
-  private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWRkMjgxZWU2ZDdkNzdjOGU0ZjY4ZmYiLCJfYWN0aXZlT3JnIjoiNjE5Y2U0YThlNTg2ODUxNDYxMGM4ZGE3IiwiaWF0IjoxNjQ0MzA1ODQ3LCJleHAiOjE2NDQzNDkwNDd9.SQIqfS9BlnXa1u365opBI0kbrrhZ4BYOsaEw-Az3qwc'
+  private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjAyNDkyNTlhZmUyOTU0NzZjNDJhOGEiLCJfYWN0aXZlT3JnIjoiNjE5Y2U0YThlNTg2ODUxNDYxMGM4ZGE3IiwiaWF0IjoxNjQ0NDExNDIxLCJleHAiOjE2NDQ0NTQ2MjF9.63JDOwIOFPfh4ILdRYUrzS2I6FqrZ_Co51mrHjZBUFI'
   private _url = 'https://admin.liveexamcenter.in/api/questions?page=1&limit=&term=&topic='
   private _topicUrl = "https://admin.liveexamcenter.in/api/topics?page=1&limit=9007199254740991&term="
   private subjectUrl = "https://admin.liveexamcenter.in/api/subjects?page=1&limit=5&term="
 
   private postUrl = 'https://admin.liveexamcenter.in/api/questions'
   private editQuestionUrl = 'https://admin.liveexamcenter.in/api/questions'
+
+  private apiurl = 'http://localhost:4200'
+  private google='http://admin.liveexamcenter.in/api/auth/google'
   qCount:number=0
   qID:any
   getData()
@@ -63,7 +66,7 @@ export class FetchdataService {
     return this.http.get(url)
   }
   
-  postData(data:any)
+  postdata(data:any)
   {
     console.log(data);
     
@@ -96,6 +99,18 @@ export class FetchdataService {
   logout() {
     localStorage.removeItem('currentUser');
     this.route.navigate(['/login'])
+  }
+
+  loginGoogle(token:any,recaptcha:any)
+  {
+    return this.http.post<any>(`http://admin.liveexamcenter.in/api/auth/google`,{idToken: token, reCaptchaToken: recaptcha}
+    ).pipe(map((user:any)=>{
+      if(user && user.token)
+      {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+      }
+    })
+    )
   }
 
 }

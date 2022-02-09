@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FetchdataService } from '../fetchdata.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,13 +9,28 @@ import { FetchdataService } from '../fetchdata.service';
 })
 export class HeaderComponent implements OnInit {
 
-  
-  constructor(private fetchdata:FetchdataService) { }
+  public userDetails:any;
+  constructor(private fetchdata:FetchdataService, private route:Router) { }
 
   ngOnInit(): void {
+    const storage = localStorage.getItem('google_auth')
     
+    if(storage)
+    {
+      this.userDetails = JSON.parse(storage)
+    }
+    else
+    {
+      this.signOut()
+    }
+
   }
 
+  signOut()
+  {
+    localStorage.removeItem('google_auth')
+    this.route.navigateByUrl('/login').then() 
+  }
   get isLogin()
   {
     return this.fetchdata.isLoggedIn()
