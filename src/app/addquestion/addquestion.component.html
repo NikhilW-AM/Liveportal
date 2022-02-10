@@ -6,8 +6,9 @@
         <div class="row form-group">
             <div class="col">
                 <label for="select subject">select subject</label>
-                <select class="form-select col-6 form-control" id="inputGroupSelect04" aria-label="Example select with button addon" formControlName="subject">
-                    <option *ngFor="let subject of subjectArray" [value]="subject._id">{{subject.name}}</option>
+                <select class="form-select col-6 form-control" id="inputGroupSelect04" aria-label="Example select with button addon" formControlName="subject" (change)="changeTopic($event)">
+                    <option *ngFor="let subject of subjectArray" [value]="subject._id" 
+                     >{{subject.name}}</option>
                     
                   </select>
             </div>
@@ -68,7 +69,7 @@
 
                         <ng-template #checkbox>
                             <div class = "input-group-text">
-                                <input type="radio"  id="quantity.isCorrect{{i}}" aria-label="Radio button for following text input" style="margin-right: 5px;" name="isCorrect"  (click)="onChange(i)" formControlName="isCorrect" > 
+                                <input type="radio"  id="quantity.isCorrect{{i}}" aria-label="Radio button for following text input" style="margin-right: 5px;" name="isCorrect"  (change)="onChange(i)" formControlName="isCorrect" [value]=true> 
                                 <span class="form-check-label">option {{i+1}}</span>
                           </div>
                       </ng-template>

@@ -22,21 +22,23 @@ export class QuestionComponent implements OnInit {
   name:any[] = []
   questionTopic:any[]=[]
   searchBox:any
+
+
   ngOnInit(): void {
     this.fetch.getData().subscribe(data => {this.details = data,
       this.questionsArray = this.details.result
-    //console.log(this.questionsArray);
     })
-    this.fetch.getTopicData().subscribe(topic => {this.topicData = topic,
+    this.fetch.getAllTopicData().subscribe(topic => {this.topicData = topic,
     this.topic = this.topicData.result;
-    //console.log(this.topic);
+    console.log(this.topic);
     
   })
   }
 
+
   select(Count:any)
   {
-    console.log(Count.target.value);
+    //console.log(Count.target.value);
     this.questionCount = Count.target.value
     this.changeTopic(this.questionCount,this.topicId)
   }
@@ -48,11 +50,11 @@ export class QuestionComponent implements OnInit {
     {
       if(this.topic[i].name === this.topicName)
       {
-        console.log(this.topicName);
+        //console.log(this.topicName);
         this.topicId = this.topic[i]._id;
         break;
       }
-    }
+  }
    // console.log(this.questionCount, this.topicId);
     
     this.changeTopic(this.questionCount,this.topicId)
@@ -64,12 +66,12 @@ export class QuestionComponent implements OnInit {
       data => {this.questionObject = data
         this.questionTopic = this.questionObject.result
 
-        console.log(this.questionObject);
+        //console.log(this.questionObject);
         
       })
   }
   search(){
-    console.log(this.searchBox);
+    //console.log(this.searchBox);
     this.fetch.searchQuestion(this.searchBox).subscribe(data => {this.details = data,
       this.questionsArray = this.details.result
       //console.log(this.questionsArray);

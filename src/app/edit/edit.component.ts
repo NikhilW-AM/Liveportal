@@ -19,11 +19,7 @@ export class EditComponent implements OnInit {
   difficultyLevel:any[]=['Easy','Medium',"Hard"]
   isValid:boolean = false
   optionType : string = "MULTIPLE CHOICE"
-  optionArray:any[]=[
-    {option: false,textoption: ''},
-    {option: false,textoption: ''},
-    {option: false,textoption: ''},
-    {option: false,textoption: ''}]
+  optionArray:any[]=[]
   questiondata: any;
   quesData : any
   questionId:any
@@ -81,6 +77,7 @@ export class EditComponent implements OnInit {
   
   ngOnInit(): void {
     this.router.paramMap.subscribe((params:ParamMap)=>{this.questionId  = params.get('eid');});
+    console.log("url"+this.questionId);
     
     this.getData()
     this.subjectData()
@@ -91,12 +88,18 @@ export class EditComponent implements OnInit {
   subjectData(){
     this.fetch.getSubject().subscribe(data => {this.subjectobj = data,
        this.subjectArray = this.subjectobj.result
+       //console.log(this.subjectArray);
        
     })
   }
+  subject(val:any)
+  {
+    console.log(val.target.value);
+    
+  }
   topicData()
   {
-    this.fetch.getTopicData().subscribe(topic => {this.topicObject = topic,
+    this.fetch.getAllTopicData().subscribe(topic => {this.topicObject = topic,
     this.topicArray = this.topicObject.result});
   }
 
@@ -143,7 +146,7 @@ export class EditComponent implements OnInit {
   {
     this.fetch.geteditQuestionData(this.questionId).subscribe(data => {
       this.questiondata = data
-      console.log(this.questiondata);
+      //console.log(this.questiondata);
       this.setValuesById()
     })
   }

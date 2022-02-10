@@ -13,7 +13,7 @@ export class FetchdataService {
   private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjAyNDkyNTlhZmUyOTU0NzZjNDJhOGEiLCJfYWN0aXZlT3JnIjoiNjE5Y2U0YThlNTg2ODUxNDYxMGM4ZGE3IiwiaWF0IjoxNjQ0NDExNDIxLCJleHAiOjE2NDQ0NTQ2MjF9.63JDOwIOFPfh4ILdRYUrzS2I6FqrZ_Co51mrHjZBUFI'
   private _url = 'https://admin.liveexamcenter.in/api/questions?page=1&limit=&term=&topic='
   private _topicUrl = "https://admin.liveexamcenter.in/api/topics?page=1&limit=9007199254740991&term="
-  private subjectUrl = "https://admin.liveexamcenter.in/api/subjects?page=1&limit=5&term="
+  private subjectUrl = "http://admin.liveexamcenter.in/api/subjects?page=1&limit=5&term="
 
   private postUrl = 'https://admin.liveexamcenter.in/api/questions'
   private editQuestionUrl = 'https://admin.liveexamcenter.in/api/questions'
@@ -31,8 +31,12 @@ export class FetchdataService {
     })
   }
 
-  getTopicData(){
+  getTopicData(id:any){
 
+    return this.http.get(`http://admin.liveexamcenter.in/api/topics/subject/${id}`)
+  }
+  getAllTopicData()
+  {
     return this.http.get(this._topicUrl,{
       headers:{
         Authorization : this.token
@@ -41,11 +45,11 @@ export class FetchdataService {
   }
   
   getTopics(questionCount:number,id:any){
-    console.log("fetch",id);
+    //console.log("fetch",id);
     this.qCount = questionCount
     this.qID = id
     let url = `https://admin.liveexamcenter.in/api/questions?page=1&limit=${questionCount}&term=&topic=${id}`
-    console.log(url);
+   // console.log(url);
     
     return this.http.get(url)
   }

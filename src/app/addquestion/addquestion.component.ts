@@ -18,6 +18,7 @@ export class AddquestionComponent implements OnInit {
 
   subjectobj:any
   subjectArray:any[]=[]
+  subjectId?:any
   questionCount:any
   topicObject:any
   topicArray:any[] =[]
@@ -26,7 +27,7 @@ export class AddquestionComponent implements OnInit {
   isValid:boolean = false
   optionType : string = "MULTIPLE CHOICE"
   optionArray:any[]=[
-    {option:null,isCorrect: false, richTextEditor:false},
+    {option:"",isCorrect: false, richTextEditor:false},
     {option:"",isCorrect: false, richTextEditor:false},
     {option:"",isCorrect: false, richTextEditor:false},
     {option:"",isCorrect: false, richTextEditor:false}]
@@ -48,6 +49,36 @@ export class AddquestionComponent implements OnInit {
       wrongMarks:['']
     });  
       
+    onChange(i: number) {
+      // const formArray: FormArray = this.AddForm.get('options') as FormArray;
+  
+      // formArray.value.forEach((formGroup: FormGroup, index: number) => {
+      //   if (i === index) {
+      //     this.optionArray[index].isCorrect = true;
+      //   } else {
+      //     this.optionArray[index].isCorrect= false;
+      //   }
+      //   this.optionArray[index].option = this.AddForm.value.options[index].option 
+      //   console.log(this.AddForm.value.options[index].option);
+      // });
+      
+      var formArray = this.AddForm.get('options') as FormArray;
+
+      formArray.controls.forEach((data:any,index:number)=>{
+        if(i===index)
+        {
+          formArray.at(index).get('isCorrect')?.setValue(true)
+        }
+        else
+        {
+          formArray.at(index).get('isCorrect')?.setValue(false)
+        }
+      })
+      
+      console.log(formArray.value);
+    }
+
+    
     createContact(contact:any):FormGroup{
 
       return this.fb.group({
@@ -81,7 +112,7 @@ export class AddquestionComponent implements OnInit {
   
   ngOnInit(): void {
     this.subjectData()
-    this.topicData()
+    
   }
 
 
@@ -91,14 +122,24 @@ export class AddquestionComponent implements OnInit {
   subjectData(){
     this.fetch.getSubject().subscribe(data => {this.subjectobj = data,
        this.subjectArray = this.subjectobj.result
-      // console.log(this.subjectArray);
+      //console.log(this.subjectArray);
     })
   }
 
   topicData()
   {
-    this.fetch.getTopicData().subscribe(topic => {this.topicObject = topic,
-    this.topicArray = this.topicObject.result});
+    //this.fetch.getTopicData().subscribe(topic => {this.topicObject = topic,
+    //this.topicArray = this.topicObject.result});
+
+    if(this.subjectId)
+    {
+      this.fetch.getTopicData(this.subjectId).subscribe(topic => {
+        this.topicObject = topic,
+        this.topicArray = this.topicObject.result
+        console.log(this.topicArray);
+                
+      })
+    }
   }
 
   select(Count:any)
@@ -109,21 +150,7 @@ export class AddquestionComponent implements OnInit {
   }
 
 
-  onChange(i: number) {
-    const formArray: FormArray = this.AddForm.get('options') as FormArray;
-
-    formArray.value.forEach((formGroup: FormGroup, index: number) => {
-      if (i === index) {
-        this.optionArray[index].isCorrect = true;
-      } else {
-        this.optionArray[index].isCorrect= false;
-      }
-      this.optionArray[index].option = this.AddForm.value.options[index].option 
-      console.log(this.AddForm.value.options[index].option);
-    });
-    
-    
-  }
+ 
   onSubmit()
   {
     this.AddForm.get('options')?.setValue(this.optionArray);
@@ -164,5 +191,10 @@ export class AddquestionComponent implements OnInit {
       }
     }
     
+  }
+  changeTopic(id:any){
+    console.log(id.target.value);
+    this.subjectId = id.target.value
+    this.topicData()
   }
 }
