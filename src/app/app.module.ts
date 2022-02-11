@@ -14,6 +14,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { GoogleLoginProvider, SocialAuthService, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
+import { JwtModule } from '@auth0/angular-jwt';
+
 
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { SeeComponent } from './see/see.component';
@@ -45,7 +47,16 @@ import { httpInterceptorProviders } from './index';
     BrowserModule,
     AppRoutingModule,HttpClientModule, BrowserAnimationsModule,FormsModule,
     Ng2SearchPipeModule,ReactiveFormsModule,ToastrModule.forRoot(),RecaptchaV3Module,
-    MatFormFieldModule,MatIconModule,MatInputModule,SocialLoginModule
+    MatFormFieldModule,MatIconModule,MatInputModule,SocialLoginModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('access_token');
+        },
+        allowedDomains: ['localhost'],
+        disallowedRoutes: ['localhost/login']
+      }
+    }),
   ],
   providers: [{
     provide: RECAPTCHA_V3_SITE_KEY,

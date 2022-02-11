@@ -13,24 +13,9 @@ export class HeaderComponent implements OnInit {
   constructor(private fetchdata:FetchdataService, private route:Router) { }
 
   ngOnInit(): void {
-    const storage = localStorage.getItem('google_auth')
     
-    if(storage)
-    {
-      this.userDetails = JSON.parse(storage)
-    }
-    else
-    {
-      this.signOut()
-    }
-
   }
 
-  signOut()
-  {
-    localStorage.removeItem('google_auth')
-    this.route.navigateByUrl('/login').then() 
-  }
   get isLogin()
   {
     return this.fetchdata.isLoggedIn()

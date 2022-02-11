@@ -110,14 +110,10 @@ export class AddquestionComponent implements OnInit {
       this.quantities().removeAt(i);  
     } 
   
+
   ngOnInit(): void {
     this.subjectData()
-    
   }
-
-
-
-
 
   subjectData(){
     this.fetch.getSubject().subscribe(data => {this.subjectobj = data,
@@ -133,10 +129,9 @@ export class AddquestionComponent implements OnInit {
 
     if(this.subjectId)
     {
-      this.fetch.getTopicData(this.subjectId).subscribe(topic => {
-        this.topicObject = topic,
-        this.topicArray = this.topicObject.result
-        console.log(this.topicArray);
+      this.fetch.getTopicData(this.subjectId).subscribe((topic:any) => {
+        this.topicArray = topic
+       
                 
       })
     }
@@ -153,14 +148,14 @@ export class AddquestionComponent implements OnInit {
  
   onSubmit()
   {
-    this.AddForm.get('options')?.setValue(this.optionArray);
+    //this.AddForm.get('options')?.setValue(this.optionArray);
 
     console.log(this.AddForm.value);
     
-    //this.toastr.success('Success', 'Question added successfully');
-    //this.fetch.postdata(this.AddForm.value).subscribe(()=>{
-    //})
-    //this.router.navigate(['/question'])
+    this.toastr.success('Success', 'Question added successfully');
+    this.fetch.postdata(this.AddForm.value).subscribe(()=>{
+    })
+    this.router.navigate(['/question'])
   }
   fun(i:number)
   {
@@ -168,11 +163,6 @@ export class AddquestionComponent implements OnInit {
     
   }
 
-  isTrue(index:number,value:number){
-    this.optionArray[index].option = true
-    //console.log(this.optionArray);
-    
-  }
 
   changeType(event:any){
     this.optionType = event.target.value 

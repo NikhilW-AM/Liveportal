@@ -32,7 +32,6 @@ export class FetchdataService {
   }
 
   getTopicData(id:any){
-
     return this.http.get(`http://admin.liveexamcenter.in/api/topics/subject/${id}`)
   }
   getAllTopicData()
@@ -61,7 +60,7 @@ export class FetchdataService {
   }
 
   getSubject(){
-    return this.http.get(this.subjectUrl)
+    return this.http.get('http://admin.liveexamcenter.in/api/subjects?term=')
   }
 
   geteditQuestionData(id:any)
@@ -71,10 +70,18 @@ export class FetchdataService {
   }
   
   postdata(data:any)
-  {
-    console.log(data);
-    
+  { 
     return this.http.post(this.postUrl,data)
+  }
+
+  delete(id:any)
+  {
+    return this.http.delete(`https://admin.liveexamcenter.in/api/questions/${id}`)
+  }
+
+  putdata(data:any,id:any)
+  { 
+    return this.http.put(`https://admin.liveexamcenter.in/api/questions/${id}`,data)
   }
   
   login(username:string,password:string,recaptcha:any){
@@ -90,9 +97,13 @@ export class FetchdataService {
 
   isLoggedIn() {
     if (localStorage.getItem('currentUser')) {
+      console.log("true");
       return true;
     }
+    console.log('false');
+    
     return false;
+
   }
 
   getAuthorizationToken() {

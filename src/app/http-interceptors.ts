@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 
-export class HttpInterceptors implements HttpInterceptors{
+export class HttpInterceptors implements HttpInterceptor{
 
     constructor(private fetchdata:FetchdataService){}
 

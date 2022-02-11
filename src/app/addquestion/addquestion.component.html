@@ -24,7 +24,7 @@
             <div class="col">
                 <label for="Question Type">Question Type</label>
                 <select class="form-select col-6" id="inputGroupSelect04" aria-label="Example select with button addon" formControlName="type" (change)="changeType($event)">
-                    <option *ngFor="let qtype of questionType">{{qtype}}</option>
+                    <option *ngFor="let qtype of questionType" [value]="qtype">{{qtype}}</option>
                     
                   </select>
             </div>
@@ -63,7 +63,7 @@
                       <div class="input-group-prepend"> 
                       
                         <div class="input-group-text" *ngIf="optionType === 'MULTIPLE RESPONSE'; else checkbox">
-                            <input type="checkbox" id="{{i}}" aria-label="Radio button for following text input" style="margin-right: 5px;" name="isCorrect" formControlName="isCorrect" [value]="optionArray[i].isCorrect === false?  true : false"> 
+                            <input type="checkbox" id="{{i}}" aria-label="Radio button for following text input" style="margin-right: 5px;" name="isCorrect" formControlName="isCorrect" > 
                             <span class="form-check-label">option {{i+1}}</span>
                         </div>
 

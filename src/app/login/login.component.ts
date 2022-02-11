@@ -35,11 +35,10 @@ export class LoginComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    console.log("logout");
+    
     this.fetchdata.logout(); 
   }
-
-  loginwithgoogle()
-  {}
 
   get username() { return this.signin.get('username'); }
   get password() { return this.signin.get('password'); }

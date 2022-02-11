@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { FetchdataService } from '../fetchdata.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { FetchdataService } from '../fetchdata.service';
 export class QuestionComponent implements OnInit {
 
   questionCountArray:number[]=[5,10,20,30,50]
-  constructor(private fetch:FetchdataService, private rout:Router, private activate:ActivatedRoute) { }
+  constructor(private fetch:FetchdataService, private rout:Router, private activate:ActivatedRoute,private toastr:ToastrService) { }
   details?:any
   topicData:any
   topic:any[]=[]
@@ -83,5 +84,12 @@ export class QuestionComponent implements OnInit {
   edit(id:any)
   {
     this.rout.navigate(['/edit',id])
+  }
+  deleteQuestion(id:any)
+  {
+    this.fetch.delete(id).subscribe()
+    this.toastr.error('Success', 'Question deleted successfully');
+    //window.location.reload();
+    this.rout.navigate(['/question'])
   }
 }

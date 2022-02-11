@@ -14,7 +14,7 @@
             <div class="col">
                 <label for="select topic">select topic</label>
                 <select class="form-select col-6" id="inputGroupSelect04" aria-label="Example select with button addon" formControlName="topic">
-                    <option *ngFor="let topic of topicArray" [value]="topic.name">{{topic.name}}</option>
+                    <option *ngFor="let topic of topicArray" [value]="topic._id">{{topic.name}}</option>
                     
                   </select>
             </div>
@@ -53,7 +53,7 @@
     
         
      
-            <div formArrayName="quantities" class="option">  
+            <div formArrayName="options" class="option">  
                 <div colspan="2">Add Multiple Quantity:</div>  
                 
               <div *ngFor="let quantity of quantities().controls; let i=index" [formGroupName]="i"> 
@@ -63,13 +63,13 @@
                       <div class="input-group-prepend"> 
                       
                         <div class="input-group-text" *ngIf="optionType === 'MULTIPLE RESPONSE'; else checkbox">
-                            <input type="checkbox" id="{{i}}" aria-label="Radio button for following text input" style="margin-right: 5px;" name="isCorrect" formControlName="isCorrect" > 
+                            <input type="checkbox" id="{{i}}" aria-label="Radio button for following text input" style="margin-right: 5px;" name="isCorrect" formControlName="isCorrect" [value]=true> 
                             <span class="form-check-label">option {{i+1}}</span>
                         </div>
 
                         <ng-template #checkbox>
                             <div class = "input-group-text">
-                                <input type="radio"  id="{{i}}" aria-label="Radio button for following text input" style="margin-right: 5px;" name="isCorrect" formControlName="isCorrect" (click)="changeOption(i)" > 
+                                <input type="radio"  id="quantity.isCorrect{{i}}" aria-label="Radio button for following text input" style="margin-right: 5px;" name="isCorrect" formControlName="isCorrect" [value]=true (change)="onChange(i)"> 
                                 <span class="form-check-label">option {{i+1}}</span>
                           </div>
                       </ng-template>
